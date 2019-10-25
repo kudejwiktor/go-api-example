@@ -4,6 +4,12 @@ import (
 	"flag"
 	"fmt"
 	"github.com/go-chi/chi"
+	"github.com/jmoiron/sqlx"
+	"github.com/kudejwiktor/go-api-example/app/http/middleware"
+	"github.com/kudejwiktor/go-api-example/app/platform/db"
+	"go-api-example/app/platform/db"
+
+	//"go-api-example/src/User/infrastructure/persistence"
 	"net/http"
 	"os"
 
@@ -44,7 +50,7 @@ func logger() {
 type App struct {
 	*http.Server
 	r *chi.Mux
-	// db         *sqlx.DB
+	db         *sqlx.DB
 	// bankRouter *banks.Router
 }
 
@@ -52,7 +58,11 @@ type App struct {
 func NewApp() *App {
 	config()
 	router := chi.NewRouter()
-	 database := setupDB(viper.GetString("database.URL"))
+	database := setupDB(viper.GetString("database.URL"))
+	router.Get("/rest/users/{id:[0-9]+}", middleware.CommonHeaders(func(w http.ResponseWriter, r *http.Request) {
+		//persistence.NewUserRepository(database)
+		fmt.Println("test")
+	}))
 	// banksRouter := banks.NewRouter(router, database)
 	server := &App{
 		r: router,
@@ -96,4 +106,12 @@ func configuration(path string, env string) {
 	if err != nil {
 		log.Fatal(fmt.Errorf("fatal: %+v", err))
 	}
+}
+
+func setupDB(dbURL string) *sqlx.DB {
+	mysql, err := db.New(dbURL)
+	if err != nil {
+		log.Fatal(fmt.Errorf("fatal: %+v", err))
+	}
+	return mysql
 }
