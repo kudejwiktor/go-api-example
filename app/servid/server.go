@@ -48,8 +48,8 @@ func logger() {
 // App Instance which contains router and dao
 type App struct {
 	*http.Server
-	r *chi.Mux
-	db         *sqlx.DB
+	r  *chi.Mux
+	db *sqlx.DB
 	// bankRouter *banks.Router
 }
 
@@ -62,9 +62,13 @@ func NewApp() *App {
 		//persistence.NewUserRepository(database)
 		fmt.Println("test")
 	}))
+	fmt.Println("test")
+	router.HandleFunc("/rest", middleware.CommonHeaders(func(w http.ResponseWriter, r *http.Request) {
+		fmt.Println("test")
+	}))
 	// banksRouter := banks.NewRouter(router, database)
 	server := &App{
-		r: router,
+		r:  router,
 		db: database,
 		// bankRouter: banksRouter,
 	}
