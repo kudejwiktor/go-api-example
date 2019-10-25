@@ -7,7 +7,6 @@ import (
 	"github.com/jmoiron/sqlx"
 	"github.com/kudejwiktor/go-api-example/app/http/middleware"
 	"github.com/kudejwiktor/go-api-example/app/platform/db"
-	"go-api-example/app/platform/db"
 
 	//"go-api-example/src/User/infrastructure/persistence"
 	"net/http"
