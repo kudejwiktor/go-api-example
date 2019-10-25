@@ -4,13 +4,11 @@ import (
 	"flag"
 	"fmt"
 	"github.com/go-chi/chi"
-	"github.com/jmoiron/sqlx"
-	//"github.com/kgoralski/go-crud-template/internal/banks"
-	// "github.com/kgoralski/go-crud-template/internal/platform/db"
-	log "github.com/sirupsen/logrus"
-	"github.com/spf13/viper"
 	"net/http"
 	"os"
+
+	log "github.com/sirupsen/logrus"
+	"github.com/spf13/viper"
 )
 
 const (
@@ -45,7 +43,7 @@ func logger() {
 // App Instance which contains router and dao
 type App struct {
 	*http.Server
-	r          *chi.Mux
+	r *chi.Mux
 	// db         *sqlx.DB
 	// bankRouter *banks.Router
 }
@@ -54,11 +52,11 @@ type App struct {
 func NewApp() *App {
 	config()
 	router := chi.NewRouter()
-	// database := setupDB(viper.GetString("database.URL"))
+	 database := setupDB(viper.GetString("database.URL"))
 	// banksRouter := banks.NewRouter(router, database)
 	server := &App{
-		r:          router,
-		// db:         database,
+		r: router,
+		db: database,
 		// bankRouter: banksRouter,
 	}
 	//server.routes()
@@ -67,7 +65,7 @@ func NewApp() *App {
 
 // Start launching the server
 func (a *App) Start() {
-	log.Fatal(http.ListenAndServe(viper.GetString("server.port"), a.r))
+	log.Fatal(http.ListenAndServe(":8080", a.r))
 }
 
 // func (a *App) routes() {

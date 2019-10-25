@@ -1,0 +1,14 @@
+DROP DATABASE IF EXISTS users_db;
+CREATE DATABASE users_db;
+
+DROP USER IF EXISTS admin;
+CREATE USER 'admin' IDENTIFIED BY 'Admin.123';
+GRANT ALL PRIVILEGES ON users_db.* TO 'admin';
+
+
+DROP TABLE IF EXISTS users_db.users;
+CREATE TABLE users_db.users (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  name varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;

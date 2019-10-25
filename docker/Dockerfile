@@ -11,8 +11,10 @@ RUN apt-get update && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-RUN go install app/main.go
+RUN go build app/main.go
+
+CMD ["/go/src/github.com/kudejwiktor/go-api-example/main"]
 
 #ENTRYPOINT docker/go-app-entrypoint.sh
 
-EXPOSE 8080
+EXPOSE 8083

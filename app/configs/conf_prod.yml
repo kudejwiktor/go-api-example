@@ -1,0 +1,4 @@
+server:
+  port: :8083
+database:
+  URL: admin:Admin.123@tcp(go-api-example-db:3306)/users_db?charset=utf8
