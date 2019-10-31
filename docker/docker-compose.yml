@@ -3,14 +3,14 @@ services:
 
   go-api-example-db:
     container_name: go-api-example-db
-    image: mysql:5.7
+    image: mysql:5.6
     ports:
       - "33061:3306"
     environment:
-      - MYSQL_USER=root
-      - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
-      - MYSQL_RANDOM_ROOT_PASSWORD=no
+      - "MYSQL_DATABASE=users_db"
+      - "MYSQL_USER=admin"
+      - "MYSQL_PASSWORD=Admin.123"
+      - "MYSQL_ROOT_PASSWORD=secret"
     volumes:
       - ./db:/docker-entrypoint-initdb.d
 
@@ -20,10 +20,8 @@ services:
       context: ./../
       dockerfile: ./docker/Dockerfile
     image: golang:go-api-example
-    # links:
-    #   - go-app-db:go-app-db
+    links:
+      - go-api-example-db:go-api-example-db
     ports:
       - "8083:8083"
-
-volumes:
-  dbdata:
+    tty: true

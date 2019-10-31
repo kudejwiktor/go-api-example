@@ -37,4 +37,3 @@ type ErrEntityNotFound struct {
 func (e ErrEntityNotFound) Error() string {
 	return fmt.Sprintf("%s: %s", EntityNotExist, e.Err)
 }
-

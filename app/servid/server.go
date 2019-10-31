@@ -8,7 +8,7 @@ import (
 	"github.com/kudejwiktor/go-api-example/app/http/middleware"
 	"github.com/kudejwiktor/go-api-example/app/platform/db"
 
-	//"go-api-example/src/User/infrastructure/persistence"
+	//"go-api-example/source/User/infrastructure/persistence"
 	"net/http"
 	"os"
 
@@ -17,7 +17,7 @@ import (
 )
 
 const (
-	defaultConfigFilePath  = "./configs"
+	defaultConfigFilePath  = "./app/configs"
 	configFilePathUsage    = "config file directory. Config file must be named 'conf_{env}.yml'."
 	configFilePathFlagName = "configFilePath"
 	envUsage               = "environment for app, prod, dev, test"
@@ -64,7 +64,7 @@ func NewApp() *App {
 	}))
 	fmt.Println("test")
 	router.HandleFunc("/rest", middleware.CommonHeaders(func(w http.ResponseWriter, r *http.Request) {
-		fmt.Println("test")
+		fmt.Println("test3")
 	}))
 	// banksRouter := banks.NewRouter(router, database)
 	server := &App{
@@ -78,7 +78,7 @@ func NewApp() *App {
 
 // Start launching the server
 func (a *App) Start() {
-	log.Fatal(http.ListenAndServe(":8080", a.r))
+	log.Fatal(http.ListenAndServe(viper.GetString("server.port"), a.r))
 }
 
 // func (a *App) routes() {
