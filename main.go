@@ -5,11 +5,6 @@ import (
 	"github.com/kudejwiktor/go-api-example/app/servid"
 )
 
-type User struct {
-	ID   int    `json:"id"`
-	Name string `json:"name"`
-}
-
 func main() {
 	server := servid.NewApp()
 	server.Start()

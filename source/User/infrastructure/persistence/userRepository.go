@@ -4,7 +4,7 @@ import (
 	"database/sql"
 	"github.com/jmoiron/sqlx"
 	"github.com/pkg/errors"
-	domain "go-api-example/src/User/domain"
+	domain "go-api-example/source/User/domain"
 )
 
 type UserRepositoryImpl struct {

@@ -7,8 +7,8 @@ import (
 	"github.com/jmoiron/sqlx"
 	"github.com/kudejwiktor/go-api-example/app/http/middleware"
 	"github.com/kudejwiktor/go-api-example/app/platform/db"
+	"github.com/kudejwiktor/go-api-example/source/User/infrastructure/persistence"
 
-	//"go-api-example/source/User/infrastructure/persistence"
 	"net/http"
 	"os"
 
@@ -60,7 +60,10 @@ func NewApp() *App {
 	database := setupDB(viper.GetString("database.URL"))
 	router.Get("/rest/users/{id:[0-9]+}", middleware.CommonHeaders(func(w http.ResponseWriter, r *http.Request) {
 		//persistence.NewUserRepository(database)
-		fmt.Println("test")
+		x := persistence.NewUserRepository(database)
+		user, _ := x.GetUserOfId(1)
+		fmt.Println("user")
+		fmt.Println(user)
 	}))
 	fmt.Println("test")
 	router.HandleFunc("/rest", middleware.CommonHeaders(func(w http.ResponseWriter, r *http.Request) {
