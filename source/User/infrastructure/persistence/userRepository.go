@@ -3,8 +3,8 @@ package persistence
 import (
 	"database/sql"
 	"github.com/jmoiron/sqlx"
+	domain "github.com/kudejwiktor/go-api-example/source/User/domain"
 	"github.com/pkg/errors"
-	domain "go-api-example/source/User/domain"
 )
 
 type UserRepositoryImpl struct {

@@ -5,10 +5,9 @@ import (
 	"fmt"
 	"github.com/go-chi/chi"
 	"github.com/jmoiron/sqlx"
-	"github.com/kudejwiktor/go-api-example/app/http/middleware"
 	"github.com/kudejwiktor/go-api-example/app/platform/db"
 	"github.com/kudejwiktor/go-api-example/source/User/infrastructure/persistence"
-
+	"github.com/kudejwiktor/go-api-example/source/User/infrastructure/routes"
 	"net/http"
 	"os"
 
@@ -48,9 +47,9 @@ func logger() {
 // App Instance which contains router and dao
 type App struct {
 	*http.Server
-	r  *chi.Mux
-	db *sqlx.DB
-	// bankRouter *banks.Router
+	r          *chi.Mux
+	db         *sqlx.DB
+	userRouter *routes.UserRouter
 }
 
 // NewApp creates new App with db connection pool
@@ -58,22 +57,19 @@ func NewApp() *App {
 	config()
 	router := chi.NewRouter()
 	database := setupDB(viper.GetString("database.URL"))
-	router.Get("/rest/users/{id:[0-9]+}", middleware.CommonHeaders(func(w http.ResponseWriter, r *http.Request) {
-		//persistence.NewUserRepository(database)
-		x := persistence.NewUserRepository(database)
-		user, _ := x.GetUserOfId(1)
-		fmt.Println("user")
-		fmt.Println(user)
-	}))
-	fmt.Println("test")
-	router.HandleFunc("/rest", middleware.CommonHeaders(func(w http.ResponseWriter, r *http.Request) {
-		fmt.Println("test3")
-	}))
+	userRouter := routes.NewRouter(router, persistence.NewUserRepository(database))
+	//router.Get("/rest/users/{id:[0-9]+}", middleware.CommonHeaders(func(w http.ResponseWriter, r *http.Request) {
+	//	persistence.NewUserRepository(database)
+	//	x := persistence.NewUserRepository(database)
+	//	user, _ := x.GetUserOfId(1)
+	//	fmt.Println("user")
+	//	fmt.Println(user)
+	//}))
 	// banksRouter := banks.NewRouter(router, database)
 	server := &App{
-		r:  router,
-		db: database,
-		// bankRouter: banksRouter,
+		r:          router,
+		db:         database,
+		userRouter: userRouter,
 	}
 	//server.routes()
 	return server
