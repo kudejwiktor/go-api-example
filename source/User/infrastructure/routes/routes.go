@@ -6,7 +6,7 @@ import (
 	"github.com/go-chi/chi"
 	"github.com/kudejwiktor/go-api-example/src/User/domain"
 	//"github.com/pkg/errors"
-	"go-api-example/app/http/middleware"
+	"github.com/kudejwiktor/go-api-example/app/http/middleware"
 
 	//"go-api-example/source/User/infrastructure/persistence"
 	"net/http"
