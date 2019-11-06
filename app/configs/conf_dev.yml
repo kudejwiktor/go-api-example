@@ -1,0 +1,4 @@
+server:
+  port: :8080
+database:
+  URL: root:root@tcp(localhost:8889)/users_db?charset=utf8

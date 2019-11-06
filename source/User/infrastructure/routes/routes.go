@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/go-chi/chi"
-	"github.com/kudejwiktor/go-api-example/src/User/domain"
+	"github.com/kudejwiktor/go-api-example/source/User/domain"
 	//"github.com/pkg/errors"
 	"github.com/kudejwiktor/go-api-example/app/http/middleware"
 

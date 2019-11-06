@@ -58,20 +58,13 @@ func NewApp() *App {
 	router := chi.NewRouter()
 	database := setupDB(viper.GetString("database.URL"))
 	userRouter := routes.NewRouter(router, persistence.NewUserRepository(database))
-	//router.Get("/rest/users/{id:[0-9]+}", middleware.CommonHeaders(func(w http.ResponseWriter, r *http.Request) {
-	//	persistence.NewUserRepository(database)
-	//	x := persistence.NewUserRepository(database)
-	//	user, _ := x.GetUserOfId(1)
-	//	fmt.Println("user")
-	//	fmt.Println(user)
-	//}))
-	// banksRouter := banks.NewRouter(router, database)
+	fmt.Println("test1")
 	server := &App{
 		r:          router,
 		db:         database,
 		userRouter: userRouter,
 	}
-	//server.routes()
+	server.routes()
 	return server
 }
 
@@ -80,10 +73,11 @@ func (a *App) Start() {
 	log.Fatal(http.ListenAndServe(viper.GetString("server.port"), a.r))
 }
 
-// func (a *App) routes() {
-// 	a.bankRouter.Routes()
-// 	showRoutes(a.r)
-// }
+func (a *App) routes() {
+	fmt.Println("spoko")
+	a.userRouter.Routes()
+	showRoutes(a.r)
+}
 
 func showRoutes(r *chi.Mux) {
 	log.Info("registered routes: ")
